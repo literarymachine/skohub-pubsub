@@ -2,6 +2,7 @@ import express from 'express'
 import request from 'superagent'
 import crypto from 'crypto'
 import parseLinkHeader from 'parse-link-header'
+import WebSocket  from 'ws'
 
 const DEFAULT_LEASE = 7
 const LDP_INBOX = 'http://www.w3.org/ns/ldp#inbox'
@@ -104,5 +105,15 @@ pubsub.post('/hub', async (req, res) => {
     // discard subscription request
   }
 })
+
+const wss = new WebSocket.Server({ noServer: true })
+wss.on('connection', ws => {
+  ws.on('message', message => {
+    console.log('ws message received', JSON.parse(message))
+  })
+  console.log('ws connected')
+})
+
+pubsub.wss = wss
 
 export default pubsub

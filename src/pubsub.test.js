@@ -147,3 +147,9 @@ describe('Test WebSub subscriptions', () => {
     expect(response.statusCode).toBe(400)
   })
 })
+
+describe('Test Websocket subscriptions', () => {
+  test('accepts subscriptions requests for a topic', () => {
+    expect(false).toBe(true)
+  })
+})
